@@ -55,7 +55,7 @@ def maptocache(objects):
 # the main part
 hit = 0
 miss = 0
-with open('swim.trace', 'r') as f:  # open the .trace file
+with open('twolf.trace', 'r') as f:  # open the .trace file
     for line in f:
         line = line[4:12]  # 3004caa0
         address = hextobin(line)  # 32 bit address in binary
@@ -67,13 +67,12 @@ with open('swim.trace', 'r') as f:  # open the .trace file
         # creating a temporary object from the class location and the
         #using it for mapping.
         l = location(1, bintodec(resindex), restag)
-        maptocache(l)
         #If valid bit == 1 and tag match then it is a hit.
         if map[l.index][0] == 1 and restag == map[l.index][1]:
             hit += 1
         else:
             miss += 1
-
+            maptocache(l)
 
 print("miss ratio :", miss/(miss + hit))
 print("hit ratio : ", hit/(miss + hit))
